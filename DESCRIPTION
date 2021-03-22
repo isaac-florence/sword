@@ -1,18 +1,23 @@
 Package: showflow
-Title: What the Package Does (One Line, Title Case)
+Title: Visualise and monitor pipelines in R
 Version: 0.0.0.9000
 Authors@R: 
-    person(given = "First",
-           family = "Last",
+    person(given = "Isaac",
+           family = "Florence",
            role = c("aut", "cre"),
-           email = "first.last@example.com",
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
+           email = "isaac.florence@outlook.com",
+           comment = c(ORCID = "0000-0001-8260-1237"))
+Description: Inspired by Apache Airflow and prompted by {targets}, showflow is a lightweight, flexible package which interprets special,
+  {roxygen2}-style comments to create a map of pipelines or processes in R, and drop-in functions to monitor pipeline progression in 
+  an external or auxiliary dataset for real-time visualisation and monitoring. 
 License: MIT + file LICENSE
-Suggests: 
-    testthat (>= 3.0.0)
-Config/testthat/edition: 3
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
+Imports:
+  purrr,
+  readr
+Suggests: 
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
