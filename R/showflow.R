@@ -13,7 +13,7 @@ showflow <- function(dir = "./R"){
 
   files <- list.files(dir, "\\.R$", recursive = T, full.names = T)
 
-  blocks <- lapply(files, shfl_blocks)
+  blocks <- get_blocks(files)
 
   # return(blocks)
 }
