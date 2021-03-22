@@ -7,14 +7,15 @@
 #' @param dir Directory/top-level of repository
 #'
 #' @export
-showflow <- function(dir = "."){
+showflow <- function(dir = "./R"){
 
   dir <- normalizePath(dir, mustWork = T)
 
-  files <- list.files(dir, "\\.R$", recursive = T)
+  files <- list.files(dir, "\\.R$", recursive = T, full.names = T)
 
   blocks <- lapply(files, shfl_blocks)
 
+  # return(blocks)
 }
 
 
