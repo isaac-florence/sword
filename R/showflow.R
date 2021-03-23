@@ -13,9 +13,13 @@ showflow <- function(dir = "./R"){
 
   files <- list.files(dir, "\\.R$", recursive = T, full.names = T)
 
+  ## get showflow blocks
   blocks <- get_blocks(files)
-
+  ## check blocks have minimum requirements
   check_blocks(blocks)
-  # return(blocks)
+  ## create attributes dataframe
+  attrs <- get_attributes(blocks)
+
+  return(attrs)
 }
 
