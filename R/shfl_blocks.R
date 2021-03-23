@@ -33,7 +33,7 @@ file_blocks <- function(file = NULL){
   file_name <- basename(file)
   file_name <- sub("\\.R","", file_name)
   ## show flow comment lines
-  comments <- contents[grep("^#'", contents)]
+  comments <- contents[grep("^#-", contents)]
   ## beginning of each show flow comment block
   com_head_ref <- grep("@name", comments)
   ## init file blocks return
@@ -75,7 +75,7 @@ file_blocks <- function(file = NULL){
 make_block <- function(block = NULL, file_name =NULL, i =1){
 
   ## split into showflow tag element heads and body eg name = example, type = load
-  block <- gsub("#\\'\\s*", "", unlist(strsplit(paste(block, collapse = " "), "#\\'\\s*@")))
+  block <- gsub("#\\-\\s*", "", unlist(strsplit(paste(block, collapse = " "), "#\\-\\s*@")))
   ## vector of tag heads
   block_head <- sub("(^\\w+)\\s.+","\\1", block)
   ## vector of cleaned tag bodies
