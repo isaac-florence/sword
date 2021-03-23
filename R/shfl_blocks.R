@@ -93,3 +93,19 @@ make_block <- function(block = NULL, file_name =NULL, i =1){
   return(into_blocks)
 }
 
+
+
+
+check_blocks <- function(blocks = NULL){
+  ## for each block element
+  for(i in names(blocks)){
+    ## check elements have both @name and @type
+    if(!all(c("name", "type") %in% names(blocks[[i]]))) stop(sprintf("%s requires both @name and @type elements", i))
+    ## check non load or setup @type blocks have @use element
+    if(!any(c("load", "setup") %in% blocks[[i]][["type"]])){
+      if(!c("uses") %in% names(blocks[[i]])){
+        stop(sprintf("%s is not type load or setup and so requires @uses element", i))
+      }
+    }
+  }
+}
