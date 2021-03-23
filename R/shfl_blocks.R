@@ -44,7 +44,7 @@ file_blocks <- function(file = NULL){
     blocks <- c(make_block(comments, file_name))
 
     ## if more than one, some manipulation required
-  } else {
+  } else if(length(com_head_ref) > 1) {
     ## add index of end of showflow blocks in file
     com_head_ref <- c(com_head_ref, length(comments)+1)
     ## for each head of showflow block
