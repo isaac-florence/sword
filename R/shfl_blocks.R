@@ -96,6 +96,10 @@ make_block <- function(block = NULL, file_name =NULL, i =1){
 
 
 
+#' @name check_blocks
+#' @noRd
+#'
+#' @param blocks blocks object
 check_blocks <- function(blocks = NULL){
   ## for each block element
   for(i in names(blocks)){
