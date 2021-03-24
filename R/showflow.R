@@ -21,8 +21,10 @@ showflow <- function(dir = "./R"){
   attrs <- get_attributes(blocks)
   cli::cli_alert_success("showflow block attributes extracted")
 
+  ## turn to network elements
+  nw_elements <- process_attributes(attrs)
   cli::cli_alert_success("showflow block dependencies and flows compiled")
 
-  return(attrs)
+  return(nw_elements)
 }
 
