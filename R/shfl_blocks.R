@@ -31,7 +31,6 @@ file_blocks <- function(file = NULL){
   contents <- readr::read_lines(file)
   ##short file name
   file_name <- basename(file)
-  file_name <- sub("\\.R","", file_name)
   ## show flow comment lines
   comments <- contents[grep("^#-", contents)]
   ## beginning of each show flow comment block
