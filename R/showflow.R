@@ -17,8 +17,13 @@ showflow <- function(dir = "./R"){
   blocks <- get_blocks(files)
   ## check blocks have minimum requirements
   check_blocks(blocks)
+  cli::cli_alert_success("Files parsed for showflow blocks")
+
   ## create attributes dataframe
   attrs <- get_attributes(blocks)
+  cli::cli_alert_success("showflow block attributes extracted")
+
+  cli::cli_alert_success("showflow block dependencies and flows compiled")
 
   return(attrs)
 }
