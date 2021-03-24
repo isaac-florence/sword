@@ -84,6 +84,11 @@ make_block <- function(block = NULL, file_name =NULL, i =1){
   block_body <- sub("^(\\w+)\\s+","", block)
   block_body <- sub("\\s*$","", block_body)
 
+  ## checks
+  if((!"name" %in% block_head | !"type" %in% block_head) & !"title" %in% block_head){
+    stop(sprintf("Showflow block %s in '%s.R' must have @name and @type elements", i, file_name))
+  } else if("name" %in% block_head & "title" %in% block_head){
+    stop(sprintf("Showflow block %s in '%s.R' cannot have both a @title and a @name element", i, file_name))
   }
 
   ## rearrange blocks
@@ -97,6 +102,10 @@ make_block <- function(block = NULL, file_name =NULL, i =1){
   ## remove empty blocks
   block <- purrr::keep(block, ~.x != "")
 
+  ## further checks
+  if(!any(c("setup", "load") %in% block[["type"]]) & !any(c("uses", "relies") %in% block_head) & !"title" %in% block_head){
+    stop(sprintf("Showflow block %s in '%s.R' is not @type setup or load and so requires @uses or @relies", i, file_name))
+  }
 
   ## put into list for appending with file name and block number
   into_blocks <- list(block)
