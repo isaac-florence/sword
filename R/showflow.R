@@ -1,4 +1,4 @@
-#' @name showflow
+#' @title showflow
 #'
 #' @description
 #' Parse repository, document flows, and optionally show flows
