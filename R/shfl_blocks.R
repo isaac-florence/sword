@@ -76,32 +76,36 @@ make_block <- function(block = NULL, file_name =NULL, i =1){
 
   ## split into showflow tag element heads and body eg name = example, type = load
   block <- gsub("#\\-\\s*", "", unlist(strsplit(paste(block, collapse = " "), "#\\-\\s*@")))
+
   ## vector of tag heads
   block_head <- sub("(^\\w+)\\s.+","\\1", block)
+
   ## vector of cleaned tag bodies
   block_body <- sub("^(\\w+)\\s+","", block)
   block_body <- sub("\\s*$","", block_body)
+
+  }
+
+  ## rearrange blocks
+  block_head <- c(block_head, "filename")
+  block_body <- c(block_body, file_name)
+
   ## list with tag heads as names
-  block <- as.list(block_body)
+  block <- as.list(block_body, file_name)
   names(block) <- block_head
+
   ## remove empty blocks
   block <- purrr::keep(block, ~.x != "")
+
+
   ## put into list for appending with file name and block number
   into_blocks <- list(block)
-  names(into_blocks) <- paste(file_name, i, sep = "_")
+  if("name" %in% block_head){
+    names(into_blocks) <- block_body[which(block_head == "name")]
+  } else if("title" %in% block_head){
+    names(into_blocks) <- block_body[which(block_head == "title")]
+  }
 
   return(into_blocks)
-}
-
-
-
-  }
-
-
-
-
-
-  }
-
 
 }
