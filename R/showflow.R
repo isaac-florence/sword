@@ -15,8 +15,6 @@ showflow <- function(dir = "./R"){
 
   ## get showflow blocks
   blocks <- get_blocks(files)
-  ## check blocks have minimum requirements
-  check_blocks(blocks)
   cli::cli_alert_success("Files parsed for showflow blocks")
 
   ## create attributes dataframe
