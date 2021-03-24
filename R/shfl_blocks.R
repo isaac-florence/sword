@@ -36,6 +36,7 @@ file_blocks <- function(file = NULL){
   comments <- contents[grep("^#-", contents)]
   ## beginning of each show flow comment block
   com_head_ref <- grep("@name", comments)
+  com_head_ref <- c(grep("@title", comments), com_head_ref)
   ## init file blocks return
   blocks <- list()
 
