@@ -7,10 +7,15 @@ get_visnetwork <- function(nw_elements = NULL){
   nodes <- nw_elements$attributes %>%
     dplyr::mutate(shape = "icon",
                   icon.code = dplyr::case_when(
-                    type == "load"    ~ "f1c0",
-                    type == "save"    ~ "f0ab",
-                    type == "process" ~ "f111",
-                    type == "setup"   ~ "f0c8"))
+                    type == "load"     ~ "f1c0",
+                    type == "load_file"~ "f15b",
+                    type == "load_db"  ~ "f1c0",
+                    type == "save"     ~ "f0ab",
+                    type == "save_db"  ~ "f1c0",
+                    type == "process"  ~ "f111",
+                    type == "setup"    ~ "f0c8",
+                    type == "if"       ~ "f059",
+                    type == "loop"     ~ "f01e"))
 
   visnetwork <- visNetwork::visNetwork(
     nodes, edges,
