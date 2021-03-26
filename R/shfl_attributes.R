@@ -59,12 +59,13 @@ process_attributes <- function(attrs = NULL){
   }
 
   attrs <- attrs %>%
-    dplyr::select(-relies, -uses)
+    dplyr::select(-relies, -uses) %>%
+    dplyr::rename("id" = "block",
+                  "label" = "name")
 
   ## output
   nw_elements <- list(attrs, deps, flows)
   names(nw_elements) <- c("attributes", "dependencies", "flows")
 
   return(nw_elements)
-
 }
