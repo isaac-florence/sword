@@ -32,7 +32,7 @@ file_blocks <- function(file = NULL){
   ##short file name
   file_name <- basename(file)
   ## show flow comment lines
-  comments <- contents[grep("^#-", contents)]
+  comments <- contents[grep("^\\s*#-", contents)]
   ## beginning of each show flow comment block
   com_head_ref <- grep("@name", comments)
   com_head_ref <- c(grep("@title", comments), com_head_ref)
