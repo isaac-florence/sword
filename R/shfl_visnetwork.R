@@ -26,6 +26,6 @@ get_visnetwork <- function(nw_elements = NULL){
                     forceDirection = "horizontal")
     ) %>%
     visNetwork::visHierarchicalLayout(direction = "LR", sortMethod = "directed") %>%
-    vizNetwork::visOptions(highlightNearest = FALSE) %>%
+    visNetwork::visOptions(highlightNearest = FALSE) %>%
     visNetwork::addFontAwesome()
 }
