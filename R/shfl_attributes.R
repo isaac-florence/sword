@@ -47,11 +47,11 @@ process_attributes <- function(attrs = NULL){
   ## relies & uses dependencies
   deps <- attrs %>%
     dplyr::select(block, relies, uses) %>%
-    tidyr::separate(relies, c("relies_a", "relies_b", "relies_c"), sep = " ", fill = "right") %>%
-    tidyr::separate(uses, c("uses_a", "uses_b", "uses_c"), sep = " ", fill = "right") %>%
-    tidyr::pivot_longer(c(uses_a, uses_b, uses_c, relies_a, relies_b, relies_c), names_to = "from", values_to = "from_type") %>%
-    dplyr::filter(!is.na(from_type)) %>%
-    dplyr::mutate(from = gsub("_\\D", "", from))
+    tidyr::pivot_longer(cols = relies:uses, names_to = "dep_type", values_to = "from") %>%
+    dplyr::mutate(from = strsplit(from, " ")) %>%
+    tidyr::unnest_longer(from) %>%
+    dplyr::filter(!is.na(from)) %>%
+    dplyr::rename("to" ="block")
 
   ## warning
   if(nrow(deps) < 3){
