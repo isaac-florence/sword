@@ -18,7 +18,7 @@ get_visnetwork <- function(nw_elements = NULL){
                 style = "font-family:Georgia;font-weight:bold;font-size:20px;text-align:center;"),
     footer = list(text = paste(nw_elements$flows$description),
                   style = "font-family:serif;font-size:16px;text-align:left;"),
-    width = "800px", height = "400px"
+    width = "80%", height = "800px"
   ) %>%
     visNetwork::visEdges(
       arrows = "to", width = 2,
