@@ -25,6 +25,10 @@ showflow <- function(dir = "./R"){
   nw_elements <- process_attributes(attrs)
   cli::cli_alert_success("showflow block dependencies and flows compiled")
 
-  return(nw_elements)
+  ## visnetwork of elements
+  visnetwork <- get_visnetwork(nw_elements)
+
+  print(visnetwork)
+  return(visnetwork)
 }
 
