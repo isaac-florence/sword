@@ -7,9 +7,9 @@ Authors@R:
            role = c("aut", "cre"),
            email = "isaac.florence@outlook.com",
            comment = c(ORCID = "0000-0001-8260-1237"))
-Description: Inspired by Apache Airflow and prompted by {targets}, showflow is a lightweight, flexible package which interprets special,
-  {roxygen2}-style comments to create a map of pipelines or processes in R, and drop-in functions to monitor pipeline progression in 
-  an external or auxiliary dataset for real-time visualisation and monitoring. 
+Description: Inspired by Apache Airflow and prompted by {targets}, showflow is a flexible package which interprets special,
+  {roxygen2}-style comments to create a map of pipelines or processes in R. You can also use drop-in functions to monitor pipeline 
+  progression in an external, auxiliary dataset for real-time monitoring. 
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
