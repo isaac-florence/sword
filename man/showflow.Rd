@@ -4,12 +4,16 @@
 \alias{showflow}
 \title{showflow}
 \usage{
-showflow(dir = "./R")
+showflow(repo = ".", dir = "R", flows = NULL)
 }
 \arguments{
-\item{dir}{Directory/top-level of repository. Default is R sub-directory of working directory.}
+\item{repo}{Directory/top-level of repository. Default is working directory.}
+
+\item{dir}{Sub-directory of R scripts. Default is R sub-directory of working directory.}
+
+\item{flows}{Optional, which flows to show}
 }
 \description{
-Parse repository, document flows, and optionally show flows
+Parse repository, document flows, and show flows
 Uses special code annotation to document flows
 }
