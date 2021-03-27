@@ -36,7 +36,7 @@ process_attributes <- function(attrs = NULL){
     dplyr::select(title, description)
 
   if(nrow(flows) == 0){
-    cli::cli_alert_warning("No showflow title provided. Default to 'showflow'")
+    cli::cli_alert_warning("No showflow title provided.")
   }
 
   ## flow parts
