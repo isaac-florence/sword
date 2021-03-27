@@ -1,4 +1,4 @@
 library(testthat)
-library(showflow)
+library(sword)
 
-test_check("showflow")
+test_check("sword")

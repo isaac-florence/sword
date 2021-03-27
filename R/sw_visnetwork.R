@@ -2,7 +2,7 @@
 #'
 #' @noRd
 #'
-#' @param nw_elements List of interpreted showflow blocks' attributes
+#' @param nw_elements List of interpreted sword blocks' attributes
 get_visnetwork <- function(nw_elements = NULL){
 
   edges <- nw_elements$dependencies %>%

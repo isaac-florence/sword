@@ -2,7 +2,7 @@
 #' @name get_blocks
 #' @noRd
 #'
-#' @param files files to interpret for showflow blocks
+#' @param files files to interpret for sword blocks
 #'
 #' @keywords internal
 get_blocks <- function(files = NULL){
@@ -20,7 +20,7 @@ get_blocks <- function(files = NULL){
 #' @name file_blocks
 #' @noRd
 #'
-#' @param file file to interpret for showflow blocks
+#' @param file file to interpret for sword blocks
 #'
 #' @keywords internal
 #'
@@ -31,9 +31,9 @@ file_blocks <- function(file = NULL){
   contents <- readr::read_lines(file)
   ##short file name
   file_name <- basename(file)
-  ## show flow comment lines
+  ## sword comment lines
   comments <- contents[grep("^\\s*#-", contents)]
-  ## beginning of each show flow comment block
+  ## beginning of each sword comment block
   com_head_ref <- grep("@name", comments)
   com_head_ref <- c(grep("@title", comments), com_head_ref)
   ## init file blocks return
@@ -45,9 +45,9 @@ file_blocks <- function(file = NULL){
 
     ## if more than one, some manipulation required
   } else if(length(com_head_ref) > 1) {
-    ## add index of end of showflow blocks in file
+    ## add index of end of sword blocks in file
     com_head_ref <- c(com_head_ref, length(comments)+1)
-    ## for each head of showflow block
+    ## for each head of sword block
     for(i in 1:(length(com_head_ref)-1)){
       ## get block
       block <- comments[com_head_ref[i]:(com_head_ref[i+1]-1)]
@@ -74,7 +74,7 @@ file_blocks <- function(file = NULL){
 #' @importFrom purrr keep
 make_block <- function(block = NULL, file_name =NULL, i =1){
 
-  ## split into showflow tag element heads and body eg name = example, type = load
+  ## split into sword tag element heads and body eg name = example, type = load
   block <- gsub("#\\-\\s*", "", unlist(strsplit(paste(block, collapse = " "), "#\\-\\s*@")))
 
   ## vector of tag heads
@@ -86,9 +86,9 @@ make_block <- function(block = NULL, file_name =NULL, i =1){
 
   ## checks
   if((!"name" %in% block_head | !"type" %in% block_head) & !"title" %in% block_head){
-    stop(sprintf("Showflow block %s in '%s.R' must have @name and @type elements", i, file_name))
+    stop(sprintf("sword block %s in '%s.R' must have @name and @type elements", i, file_name))
   } else if("name" %in% block_head & "title" %in% block_head){
-    stop(sprintf("Showflow block %s in '%s.R' cannot have both a @title and a @name element", i, file_name))
+    stop(sprintf("sword block %s in '%s.R' cannot have both a @title and a @name element", i, file_name))
   }
 
   ## rearrange blocks
@@ -104,7 +104,7 @@ make_block <- function(block = NULL, file_name =NULL, i =1){
 
   ## further checks
   if(!any(c("setup", "load") %in% block[["type"]]) & !any(c("uses", "relies") %in% block_head) & !"title" %in% block_head){
-    stop(sprintf("Showflow block %s in '%s.R' is not @type setup or load and so requires @uses or @relies", i, file_name))
+    stop(sprintf("sword block %s in '%s.R' is not @type setup or load and so requires @uses or @relies", i, file_name))
   }
 
   ## put into list for appending with file name and block number

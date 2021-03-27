@@ -1,7 +1,7 @@
-#' @title showflow
+#' @title sword
 #'
 #' @description
-#' Parse repository, document flows, and show flows
+#' Parse repository, document flows, and show DAGs
 #' Uses special code annotation to document flows
 #'
 #' @param repo Directory/top-level of repository. Default is working directory.
@@ -9,7 +9,7 @@
 #' @param flows Optional, which flows to show
 #'
 #' @export
-showflow <- function(repo = ".",
+sword <- function(repo = ".",
                      dir = "R",
                      flows = NULL){
 
@@ -22,17 +22,17 @@ showflow <- function(repo = ".",
   ## list R scripts
   files <- list.files(r_dir, "\\.R$", recursive = T, full.names = T)
 
-  ## get showflow blocks
+  ## get sword blocks
   blocks <- get_blocks(files)
-  cli::cli_alert_success("Files parsed for showflow blocks")
+  cli::cli_alert_success("Files parsed for sword blocks")
 
   ## create attributes dataframe
   attrs <- get_attributes(blocks)
-  cli::cli_alert_success("showflow block attributes extracted")
+  cli::cli_alert_success("sword block attributes extracted")
 
   ## turn to network elements
   nw_elements <- process_attributes(attrs)
-  cli::cli_alert_success("showflow block dependencies and flows compiled")
+  cli::cli_alert_success("sword block dependencies and flows compiled")
 
   ## assign flows
   if(!is.null(nw_elements$attributes$flow) & !is.null(flows))

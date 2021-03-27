@@ -36,7 +36,7 @@ process_attributes <- function(attrs = NULL){
     dplyr::select(title, description)
 
   if(nrow(flows) == 0){
-    cli::cli_alert_warning("No showflow title provided.")
+    cli::cli_alert_warning("No sword title provided.")
   }
 
   ## flow parts
@@ -55,7 +55,7 @@ process_attributes <- function(attrs = NULL){
 
   ## warning
   if(nrow(deps) < 3){
-    cli::cli_alert_warning("Few dependencies found. Is showflow markup complete?")
+    cli::cli_alert_warning("Few dependencies found. Is sword markup complete?")
   }
 
   attrs <- attrs %>%
