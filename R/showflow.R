@@ -4,14 +4,21 @@
 #' Parse repository, document flows, and optionally show flows
 #' Uses special code annotation to document flows
 #'
-#' @param dir Directory/top-level of repository. Default is R sub-directory of working directory.
+#' @param repo Directory/top-level of repository. Default is working directory.
+#' @param dir Sub-directory of R scripts. Default is R sub-directory of working directory.
 #'
 #' @export
-showflow <- function(dir = "./R"){
+showflow <- function(repo = ".",
+                     dir = "R",
 
-  dir <- normalizePath(dir, mustWork = T)
+  ## repository/top level
+  repo <- normalizePath(repo, mustWork = T)
 
-  files <- list.files(dir, "\\.R$", recursive = T, full.names = T)
+  ## file path to repository of R scripts
+  r_dir <- file.path(repo, dir)
+
+  ## list R scripts
+  files <- list.files(r_dir, "\\.R$", recursive = T, full.names = T)
 
   ## get showflow blocks
   blocks <- get_blocks(files)
