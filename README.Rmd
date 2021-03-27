@@ -20,37 +20,18 @@ knitr::opts_chunk$set(
 [![CRAN status](https://www.r-pkg.org/badges/version/showflow)](https://CRAN.R-project.org/package=showflow)
 <!-- badges: end -->
 
-The goal of showflow is to ...
+Inspired by Apache Airflow and prompted by Eli Lily's {targets}, **showflow** is a flexible package which interprets special, {roxygen2}-style comments to create interactive DAGs of pipelines or processes in R. 
+
+Designed to provide a non-disruptive, drop-in DAG building capacity that is simplistic and easy to implement. You can also use drop-in functions to monitor pipeline progression in an external, auxiliary dataset for real-time monitoring. 
+
+The reason for **showflow**'s conception was to provide real-time logging and monitoring of frequently run pipelines or processes, attempting to emulate the UI used in Apache Airflow. Naturally **showflow** does not have the same functionality for pipeline execution, it is purely for visualisation and monitoring/logging.
+
+What about {targets}? Targets is a very clever package which at the outset may appear similar to showflow but in reality the two are dissimilar in functionality and purpose. **showflow** is much more simplistic and doesn't attempt to be as clever as {targets}, but in return shouldn't require any changes to code or style, and isn't as restrictive. I recommend having a look at {targets} to see if its more extensive and structured functionality is a better fit for your project. 
 
 ## Installation
 
-You can install the released version of showflow from [CRAN](https://CRAN.R-project.org) with:
+**showflow** is not yet on CRAN. You can install the development version using {remotes}
 
 ``` r
-install.packages("showflow")
+remotes::install_git("isaac-florence/showflow")
 ```
-
-## Example
-
-This is a basic example which shows you how to solve a common problem:
-
-```{r example}
-library(showflow)
-## basic example code
-```
-
-What is special about using `README.Rmd` instead of just `README.md`? You can include R chunks like so:
-
-```{r cars}
-summary(cars)
-```
-
-You'll still need to render `README.Rmd` regularly, to keep `README.md` up-to-date. `devtools::build_readme()` is handy for this. You could also use GitHub Actions to re-render `README.Rmd` every time you push. An example workflow can be found here: <https://github.com/r-lib/actions/tree/master/examples>.
-
-You can also embed plots, for example:
-
-```{r pressure, echo = FALSE}
-plot(pressure)
-```
-
-In that case, don't forget to commit and push the resulting figure files, so they display on GitHub and CRAN.
