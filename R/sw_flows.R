@@ -11,6 +11,8 @@ get_flows <- function(nw_elements = NULL,
     nw_elements$dependencies[,c("to", "from")],
     directed = T)
 
+  nws <- igraph::clusters(nw)
+
   flow <- tibble::tibble(
     id = names(nws$membership),
     flow_id = nws$membership)
