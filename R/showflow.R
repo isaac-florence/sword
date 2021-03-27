@@ -1,15 +1,17 @@
 #' @title showflow
 #'
 #' @description
-#' Parse repository, document flows, and optionally show flows
+#' Parse repository, document flows, and show flows
 #' Uses special code annotation to document flows
 #'
 #' @param repo Directory/top-level of repository. Default is working directory.
 #' @param dir Sub-directory of R scripts. Default is R sub-directory of working directory.
+#' @param flows Optional, which flows to show
 #'
 #' @export
 showflow <- function(repo = ".",
                      dir = "R",
+                     flows = NULL){
 
   ## repository/top level
   repo <- normalizePath(repo, mustWork = T)
@@ -31,6 +33,10 @@ showflow <- function(repo = ".",
   ## turn to network elements
   nw_elements <- process_attributes(attrs)
   cli::cli_alert_success("showflow block dependencies and flows compiled")
+
+  ## assign flows
+  if(!is.null(nw_elements$attributes$flow) & !is.null(flows))
+    nw_elements <- get_flows(nw_elements, flows)
 
   ## visnetwork of elements
   visnetwork <- get_visnetwork(nw_elements)

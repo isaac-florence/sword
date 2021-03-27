@@ -23,7 +23,8 @@ Imports:
   tidyr,
   dplyr,
   cli,
-  visNetwork (>= 1.0.0)
+  visNetwork (>= 1.0.0),
+  igraph
 Suggests: 
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
