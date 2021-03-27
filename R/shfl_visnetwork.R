@@ -1,4 +1,8 @@
-
+#' @name get_visnetwork
+#'
+#' @noRd
+#'
+#' @param nw_elements List of interpreted showflow blocks' attributes
 get_visnetwork <- function(nw_elements = NULL){
 
   edges <- nw_elements$dependencies %>%
