@@ -22,12 +22,13 @@ to monitor pipeline progression in an external, auxiliary dataset for
 real-time monitoring.
 
 The reason for **showflow**’s conception was to provide real-time
-logging and monitoring of frequently run pipelines or processes,
-attempting to emulate the UI used in Apache Airflow. Naturally
-**showflow** does not have the same functionality for pipeline
-execution, it is purely for visualisation and monitoring/logging.
+logging and monitoring of frequently run pipelines or processes which
+use similar but new/updated data or contexts, attempting to emulate the
+UI used in Apache Airflow. Naturally **showflow** does not have the same
+functionality for pipeline/process execution, it is purely for
+visualisation and monitoring/logging.
 
-What about {targets}? Targets is a very clever package which at the
+What about {targets}? {targets} is a very clever package which at the
 outset may appear similar to showflow but in reality the two are
 dissimilar in functionality and purpose. **showflow** is much more
 simplistic and doesn’t attempt to be as clever as {targets}, but in
@@ -43,3 +44,16 @@ using {remotes}
 ``` r
 remotes::install_git("isaac-florence/showflow")
 ```
+
+## Development
+
+**showflow** is in its primordial phase of development and does not have
+the full suite of intended first release functionality. Please check
+back for announcements on the state of monitoring/logging capabilities
+as these develop.
+
+| Planned first release functionality                | Status          |
+|----------------------------------------------------|-----------------|
+| Create DAGs using roxygen2-style script comments   | in testing      |
+| Drop-in functions for logging pipeline progression | to be developed |
+| Visualise pipeline progression logs in shiny app   | to be developed |
