@@ -14,6 +14,6 @@ sword(repo = ".", dir = "R", flows = NULL)
 \item{flows}{Optional, which flows to show}
 }
 \description{
-Parse repository, document flows, and show flows
+Parse repository, document flows, and show DAGs
 Uses special code annotation to document flows
 }
