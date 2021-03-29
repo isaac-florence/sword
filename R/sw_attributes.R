@@ -54,9 +54,8 @@ process_attributes <- function(attrs = NULL){
     dplyr::rename("to" ="block")
 
   ## warning
-  if(nrow(deps) < 3){
+  if(nrow(deps) < 3)
     cli::cli_alert_warning("Few dependencies found. Is sword markup complete?")
-  }
 
   attrs <- attrs %>%
     dplyr::select(-relies, -uses) %>%
