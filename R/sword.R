@@ -10,8 +10,8 @@
 #'
 #' @export
 sword <- function(repo = ".",
-                     dir = "R",
-                     flows = NULL){
+                  dir = "R",
+                  flows = NULL){
 
   ## repository/top level
   repo <- normalizePath(repo, mustWork = T)
@@ -35,7 +35,7 @@ sword <- function(repo = ".",
   cli::cli_alert_success("sword block dependencies and flows compiled")
 
   ## assign flows
-  if(!is.null(nw_elements$attributes$flow) & !is.null(flows))
+  if(!is.null(flows))
     nw_elements <- get_flows(nw_elements, flows)
 
   ## visnetwork of elements
