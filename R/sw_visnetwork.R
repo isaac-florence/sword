@@ -15,8 +15,10 @@ get_visnetwork <- function(nw_elements = NULL){
                     type == "load_file"~ "f15b",
                     type == "load_db"  ~ "f1c0",
                     type == "save"     ~ "f0ab",
+                    type == "save_file"~ "f15b",
                     type == "save_db"  ~ "f1c0",
                     type == "process"  ~ "f111",
+                    type == "cloud"    ~ "f0c2",
                     type == "setup"    ~ "f0c8",
                     type == "if"       ~ "f059",
                     type == "loop"     ~ "f01e"))
