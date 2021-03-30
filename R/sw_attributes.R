@@ -62,6 +62,10 @@ process_attributes <- function(attrs = NULL){
     dplyr::rename("id" = "block",
                   "label" = "name")
 
+  ## clean
+  deps <- deps %>%
+    dplyr::filter(to %in% attrs$id) %>%
+    dplyr::filter(from %in% attrs$id)
   ## output
   nw_elements <- list(attrs, deps, flows)
   names(nw_elements) <- c("attributes", "dependencies", "flows")
