@@ -18,6 +18,7 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 [![CRAN status](https://www.r-pkg.org/badges/version/sword)](https://CRAN.R-project.org/package=sword)
+[![R-CMD-check](https://github.com/isaac-florence/sword/workflows/R-CMD-check/badge.svg)](https://github.com/isaac-florence/sword/actions)
 <!-- badges: end -->
 
 Inspired by Apache Airflow and prompted by Eli Lily's {targets}, **sword** is a flexible package which interprets special, {roxygen2}-style comments to create interactive DAGs of pipelines or processes in R. 
