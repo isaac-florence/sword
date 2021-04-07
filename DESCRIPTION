@@ -16,12 +16,13 @@ LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
 Imports:
-  purrr,
-  readr,
   magrittr,
   tibble,
+  purrr,
+  readr,
   tidyr,
   dplyr,
+  rlang,
   cli,
   visNetwork (>= 1.0.0),
   igraph

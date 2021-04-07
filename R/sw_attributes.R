@@ -5,6 +5,7 @@
 #'
 #' @importFrom tibble enframe
 #' @importFrom tidyr unnest_longer
+#' @importFrom rlang .data
 get_attributes <- function(blocks = NULL){
 
   elements <- c()
@@ -15,9 +16,9 @@ get_attributes <- function(blocks = NULL){
 
   attrs <- blocks %>%
     tibble::enframe() %>%
-    tidyr::unnest_longer(col = value) %>%
+    tidyr::unnest_longer(col = .data$value) %>%
     dplyr::rename(block = "name") %>%
-    tidyr::pivot_wider(names_from = value_id, values_from = value)
+    tidyr::pivot_wider(names_from = .data$value_id, values_from = .data$value)
 
   return(attrs)
 }
@@ -28,12 +29,13 @@ get_attributes <- function(blocks = NULL){
 #' @noRd
 #'
 #' @param attrs
+#' @importFrom rlang .data
 process_attributes <- function(attrs = NULL){
 
   ## get title of flow(s)
   flows <- attrs %>%
-    dplyr::filter(!is.na(title)) %>%
-    dplyr::select(title, description)
+    dplyr::filter(!is.na(.data$title)) %>%
+    dplyr::select(.data$title, .data$description)
 
   if(nrow(flows) == 0){
     cli::cli_alert_warning("No sword title provided.")
@@ -41,16 +43,16 @@ process_attributes <- function(attrs = NULL){
 
   ## flow parts
   attrs <- attrs %>%
-    dplyr::filter(is.na(title)) %>%
-    dplyr::select(-title, -description)
+    dplyr::filter(is.na(.data$title)) %>%
+    dplyr::select(-.data$title, -.data$description)
 
   ## relies & uses dependencies
   deps <- attrs %>%
-    dplyr::select(block, relies, uses) %>%
-    tidyr::pivot_longer(cols = relies:uses, names_to = "dep_type", values_to = "from") %>%
-    dplyr::mutate(from = strsplit(from, " ")) %>%
-    tidyr::unnest_longer(from) %>%
-    dplyr::filter(!is.na(from)) %>%
+    dplyr::select(.data$block, .data$relies, .data$uses) %>%
+    tidyr::pivot_longer(cols = .data$relies:.data$uses, names_to = "dep_type", values_to = "from") %>%
+    dplyr::mutate(from = strsplit(.data$from, " ")) %>%
+    tidyr::unnest_longer(.data$from) %>%
+    dplyr::filter(!is.na(.data$from)) %>%
     dplyr::rename("to" ="block")
 
   ## warning
@@ -58,14 +60,14 @@ process_attributes <- function(attrs = NULL){
     cli::cli_alert_warning("Few dependencies found. Is sword markup complete?")
 
   attrs <- attrs %>%
-    dplyr::select(-relies, -uses) %>%
+    dplyr::select(-.data$relies, -.data$uses) %>%
     dplyr::rename("id" = "block",
                   "label" = "name")
 
   ## clean
   deps <- deps %>%
-    dplyr::filter(to %in% attrs$id) %>%
-    dplyr::filter(from %in% attrs$id)
+    dplyr::filter(.data$to %in% attrs$id) %>%
+    dplyr::filter(.data$from %in% attrs$id)
 
   ## warning incomplete levels
   if("level" %in% colnames(attrs))

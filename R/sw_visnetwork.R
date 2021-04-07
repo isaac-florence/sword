@@ -3,10 +3,11 @@
 #' @noRd
 #'
 #' @param nw_elements List of interpreted sword blocks' attributes
+#' @importFrom rlang .data
 get_visnetwork <- function(nw_elements = NULL){
 
   edges <- nw_elements$dependencies %>%
-    dplyr::mutate(dashes = dplyr::if_else(dep_type == "uses", FALSE, TRUE))
+    dplyr::mutate(dashes = dplyr::if_else(.data$dep_type == "uses", FALSE, TRUE))
 
   nodes <- nw_elements$attributes %>%
     dplyr::mutate(shape = "icon",

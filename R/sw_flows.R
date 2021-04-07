@@ -3,6 +3,7 @@
 #'
 #' @param nw_elements a network elements object
 #' @param flows vector of flows to retain
+#' @importFrom rlang .data
 get_flows <- function(nw_elements = NULL,
                       flows = NULL){
 
@@ -19,10 +20,10 @@ get_flows <- function(nw_elements = NULL,
 
   nw_elements$attributes <- nw_elements$attributes %>%
     dplyr::left_join(flow, by = "id") %>%
-    dplyr::group_by(flow_id) %>%
+    dplyr::group_by(.data$flow_id) %>%
     dplyr::mutate(flow = dplyr::first(flow)) %>%
     dplyr::ungroup() %>%
-    dplyr::select(-flow_id) %>%
+    dplyr::select(-.data$flow_id) %>%
     dplyr::filter(flow %in% flows)
 
   return(nw_elements)
