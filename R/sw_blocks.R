@@ -5,8 +5,7 @@
 #' @param files files to interpret for sword blocks
 #'
 #' @keywords internal
-get_blocks <- function(files = NULL){
-
+get_blocks <- function(files = NULL) {
   return_blocks <- list()
 
   for (i in files) return_blocks <- c(return_blocks, file_blocks(i))
@@ -25,11 +24,11 @@ get_blocks <- function(files = NULL){
 #' @keywords internal
 #'
 #' @importFrom readr read_lines
-file_blocks <- function(file = NULL){
+file_blocks <- function(file = NULL) {
 
   ## each line as element
   contents <- readr::read_lines(file)
-  ##short file name
+  ## short file name
   file_name <- basename(file)
   ## sword comment lines
   comments <- contents[grep("^\\s*#-", contents)]
@@ -40,17 +39,17 @@ file_blocks <- function(file = NULL){
   blocks <- list()
 
   ## if one block in a file, simple
-  if(length(com_head_ref) == 1){
+  if (length(com_head_ref) == 1) {
     blocks <- c(make_block(comments, file_name))
 
     ## if more than one, some manipulation required
-  } else if(length(com_head_ref) > 1) {
+  } else if (length(com_head_ref) > 1) {
     ## add index of end of sword blocks in file
-    com_head_ref <- c(com_head_ref, length(comments)+1)
+    com_head_ref <- c(com_head_ref, length(comments) + 1)
     ## for each head of sword block
-    for(i in 1:(length(com_head_ref)-1)){
+    for (i in 1:(length(com_head_ref) - 1)) {
       ## get block
-      block <- comments[com_head_ref[i]:(com_head_ref[i+1]-1)]
+      block <- comments[com_head_ref[i]:(com_head_ref[i + 1] - 1)]
       block <- make_block(block, file_name, i)
       ## append to file blocks return
       blocks <- c(blocks, block)
@@ -72,22 +71,22 @@ file_blocks <- function(file = NULL){
 #' @keywords internal
 #'
 #' @importFrom purrr keep
-make_block <- function(block = NULL, file_name =NULL, i =1){
+make_block <- function(block = NULL, file_name = NULL, i = 1) {
 
   ## split into sword tag element heads and body eg name = example, type = load
   block <- gsub("#\\-\\s*", "", unlist(strsplit(paste(block, collapse = " "), "#\\-\\s*@")))
 
   ## vector of tag heads
-  block_head <- sub("(^\\w+)\\s.+","\\1", block)
+  block_head <- sub("(^\\w+)\\s.+", "\\1", block)
 
   ## vector of cleaned tag bodies
-  block_body <- sub("^(\\w+)\\s+","", block)
-  block_body <- sub("\\s*$","", block_body)
+  block_body <- sub("^(\\w+)\\s+", "", block)
+  block_body <- sub("\\s*$", "", block_body)
 
   ## checks
-  if((!"name" %in% block_head | !"type" %in% block_head) & !"title" %in% block_head){
+  if ((!"name" %in% block_head | !"type" %in% block_head) & !"title" %in% block_head) {
     stop(sprintf("sword block %s in '%s.R' must have @name and @type elements", i, file_name))
-  } else if("name" %in% block_head & "title" %in% block_head){
+  } else if ("name" %in% block_head & "title" %in% block_head) {
     stop(sprintf("sword block %s in '%s.R' cannot have both a @title and a @name element", i, file_name))
   }
 
@@ -100,21 +99,20 @@ make_block <- function(block = NULL, file_name =NULL, i =1){
   names(block) <- block_head
 
   ## remove empty blocks
-  block <- purrr::keep(block, ~.x != "")
+  block <- purrr::keep(block, ~ .x != "")
 
   ## further checks
-  if(!any(c("setup", "load") %in% block[["type"]]) & !any(c("uses", "relies") %in% block_head) & !"title" %in% block_head){
+  if (!any(c("setup", "load") %in% block[["type"]]) & !any(c("uses", "relies") %in% block_head) & !"title" %in% block_head) {
     stop(sprintf("sword block %s in '%s.R' is not @type setup or load and so requires @uses or @relies", i, file_name))
   }
 
   ## put into list for appending with file name and block number
   into_blocks <- list(block)
-  if("name" %in% block_head){
+  if ("name" %in% block_head) {
     names(into_blocks) <- block_body[which(block_head == "name")]
-  } else if("title" %in% block_head){
+  } else if ("title" %in% block_head) {
     names(into_blocks) <- block_body[which(block_head == "title")]
   }
 
   return(into_blocks)
-
 }

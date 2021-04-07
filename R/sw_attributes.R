@@ -6,15 +6,14 @@
 #' @importFrom tibble enframe
 #' @importFrom tidyr unnest_longer
 #' @importFrom rlang .data
-get_attributes <- function(blocks = NULL){
-
+get_attributes <- function(blocks = NULL) {
   elements <- c()
-  for(i in names(blocks)){
+  for (i in names(blocks)) {
     elements <- c(elements, names(blocks[[i]]))
   }
   elements <- c(c("name", "type", "uses"), setdiff(c("name", "type", "uses"), elements))
 
-  if(any(duplicated(blocks))){
+  if (any(duplicated(blocks))) {
     offender <- names(blocks)[which(duplicated(blocks))]
     stop(sprintf("Cannot have duplicated block names. Offending block '%s'", offender))
   }
@@ -35,14 +34,14 @@ get_attributes <- function(blocks = NULL){
 #'
 #' @param attrs
 #' @importFrom rlang .data
-process_attributes <- function(attrs = NULL){
+process_attributes <- function(attrs = NULL) {
 
   ## get title of flow(s)
   flows <- attrs %>%
     dplyr::filter(!is.na(.data$title)) %>%
     dplyr::select(.data$title, .data$description)
 
-  if(nrow(flows) == 0){
+  if (nrow(flows) == 0) {
     cli::cli_alert_warning("No sword title provided.")
   }
 
@@ -58,16 +57,19 @@ process_attributes <- function(attrs = NULL){
     dplyr::mutate(from = strsplit(.data$from, " ")) %>%
     tidyr::unnest_longer(.data$from) %>%
     dplyr::filter(!is.na(.data$from)) %>%
-    dplyr::rename("to" ="block")
+    dplyr::rename("to" = "block")
 
   ## warning
-  if(nrow(deps) < 3)
+  if (nrow(deps) < 3) {
     cli::cli_alert_warning("Few dependencies found. Is sword markup complete?")
+  }
 
   attrs <- attrs %>%
     dplyr::select(-.data$relies, -.data$uses) %>%
-    dplyr::rename("id" = "block",
-                  "label" = "name")
+    dplyr::rename(
+      "id" = "block",
+      "label" = "name"
+    )
 
   ## clean
   deps <- deps %>%
@@ -75,9 +77,11 @@ process_attributes <- function(attrs = NULL){
     dplyr::filter(.data$from %in% attrs$id)
 
   ## warning incomplete levels
-  if("level" %in% colnames(attrs))
-    if(any(is.na(attrs$level)))
+  if ("level" %in% colnames(attrs)) {
+    if (any(is.na(attrs$level))) {
       cli::cli_alert_danger("@level element in at least one sword block but not all")
+    }
+  }
 
   ## output
   nw_elements <- list(attrs, deps, flows)
