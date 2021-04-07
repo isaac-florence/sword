@@ -14,6 +14,11 @@ get_attributes <- function(blocks = NULL){
   }
   elements <- c(c("name", "type", "uses"), setdiff(c("name", "type", "uses"), elements))
 
+  if(any(duplicated(blocks))){
+    offender <- names(blocks)[which(duplicated(blocks))]
+    stop(sprintf("Cannot have duplicated block names. Offending block '%s'", offender))
+  }
+
   attrs <- blocks %>%
     tibble::enframe() %>%
     tidyr::unnest_longer(col = .data$value) %>%
