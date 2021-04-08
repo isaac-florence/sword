@@ -33,6 +33,7 @@ get_attributes <- function(blocks = NULL) {
 #' @noRd
 #'
 #' @param attrs
+#'
 #' @importFrom rlang .data
 process_attributes <- function(attrs = NULL) {
 

@@ -1,15 +1,15 @@
 Package: sword
-Title: Visualise and monitor pipelines in R
+Title: Visualise and Monitor Pipelines in R
 Version: 0.0.0.9000
 Authors@R: 
     person(given = "Isaac",
            family = "Florence",
-           role = c("aut", "cre"),
+           role = c("aut", "cre", "cph"),
            email = "isaac.florence@outlook.com",
            comment = c(ORCID = "0000-0001-8260-1237"))
-Description: Inspired by Apache Airflow and prompted by {targets}, sword is a flexible package which interprets special,
-  {roxygen2}-style comments to create a map of pipelines or processes in R. You can also use drop-in functions to monitor pipeline 
-  progression in an external, auxiliary dataset for real-time monitoring. 
+Description: Inspired by Apache Airflow and prompted by {targets},
+  Sword is an R package to visualise, log, and monitor DAG execution/progression 
+  using special comments and drop in functions.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
