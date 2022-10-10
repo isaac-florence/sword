@@ -37,6 +37,7 @@ get_attributes <- function(blocks = NULL) {
 #' @importFrom rlang .data
 process_attributes <- function(attrs = NULL) {
 
+  # TODO filter if_any
   ## get title of flow(s)
   flows <- attrs %>%
     dplyr::filter(!is.na(.data$title)) %>%
@@ -51,6 +52,7 @@ process_attributes <- function(attrs = NULL) {
     dplyr::filter(is.na(.data$title)) %>%
     dplyr::select(-.data$title, -.data$description)
 
+  # TODO filter if_any
   ## relies & uses dependencies
   deps <- attrs %>%
     dplyr::select(.data$block, .data$relies, .data$uses) %>%
